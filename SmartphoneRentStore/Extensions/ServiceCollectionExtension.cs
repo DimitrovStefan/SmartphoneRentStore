@@ -27,7 +27,14 @@
 
         public static IServiceCollection AddApplicationidentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequireUppercase = true;
+            })
                     .AddEntityFrameworkStores<SmartPhoneDbContext>();
 
             return services;
