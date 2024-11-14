@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace SmartphoneRentStore.Components
+﻿namespace SmartphoneRentStore.Components
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class MainMenuComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()

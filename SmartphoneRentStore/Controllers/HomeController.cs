@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using SmartphoneRentStore.Models;
-using System.Diagnostics;
-
 namespace SmartphoneRentStore.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Models;
+    using System.Diagnostics;
+
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
