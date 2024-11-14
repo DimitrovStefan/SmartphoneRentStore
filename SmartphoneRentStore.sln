@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore", "SmartphoneRentStore\SmartphoneRentStore.csproj", "{BF004517-3EA1-468B-851D-0673FACD31A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore.Core", "SmartphoneRentStore.Core\SmartphoneRentStore.Core.csproj", "{424E83B5-1F93-4C20-99F8-D84C15885ABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore.Infrastructure", "SmartphoneRentStore.Infrastructure\SmartphoneRentStore.Infrastructure.csproj", "{69F0155D-8BC2-47E9-9F33-3F406654DF11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BF004517-3EA1-468B-851D-0673FACD31A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF004517-3EA1-468B-851D-0673FACD31A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF004517-3EA1-468B-851D-0673FACD31A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{424E83B5-1F93-4C20-99F8-D84C15885ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{424E83B5-1F93-4C20-99F8-D84C15885ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{424E83B5-1F93-4C20-99F8-D84C15885ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{424E83B5-1F93-4C20-99F8-D84C15885ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
