@@ -1,6 +1,7 @@
 namespace SmartphoneRentStore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Models;
     using System.Diagnostics;
 
@@ -16,7 +17,8 @@ namespace SmartphoneRentStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+            return View(model);
         }
 
 

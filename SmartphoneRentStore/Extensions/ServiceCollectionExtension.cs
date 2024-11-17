@@ -37,7 +37,7 @@
             })
                     .AddEntityFrameworkStores<SmartPhoneDbContext>();
 
-            return services;
+            return services; 
 
         }
     }
