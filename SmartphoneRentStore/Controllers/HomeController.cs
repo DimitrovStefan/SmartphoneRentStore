@@ -1,7 +1,7 @@
 namespace SmartphoneRentStore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using SmartphoneRentStore.Core.Contracts.Smartphone;
+    using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Models;
     using System.Diagnostics;

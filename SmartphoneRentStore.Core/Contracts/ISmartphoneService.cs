@@ -1,6 +1,6 @@
 ﻿using SmartphoneRentStore.Core.Models.Home;
 
-namespace SmartphoneRentStore.Core.Contracts.Smartphone
+namespace SmartphoneRentStore.Core.Contracts
 {
     public interface ISmartphoneService
     {

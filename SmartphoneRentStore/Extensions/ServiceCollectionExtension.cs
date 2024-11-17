@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using SmartphoneRentStore.Core.Contracts.Smartphone;
-    using SmartphoneRentStore.Core.Services.Smartphone;
+    using SmartphoneRentStore.Core.Contracts;
+    using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Infastructure.Data;
     using SmartphoneRentStore.Infrastructure.Data.Common;
 

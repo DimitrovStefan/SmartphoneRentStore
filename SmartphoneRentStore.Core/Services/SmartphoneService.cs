@@ -1,9 +1,10 @@
-﻿namespace SmartphoneRentStore.Core.Services.Smartphone
+﻿namespace SmartphoneRentStore.Core.Services
 {
     using Microsoft.EntityFrameworkCore;
-    using SmartphoneRentStore.Core.Contracts.Smartphone;
+    using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Infrastructure.Data.Common;
+    using SmartphoneRentStore.Infrastructure.Data.Models;
 
     public class SmartphoneService : ISmartphoneService
     {
@@ -18,7 +19,7 @@
         public async Task<IEnumerable<SmartphoneIndexServiceModel>> LastFourSmartphones()
         {
             return await repository
-                .AllReadOnly<Infrastructure.Data.Models.SmartPhone>()
+                .AllReadOnly<SmartPhone>()
                 .OrderByDescending(x => x.Id)
                 .Take(4)
                 .Select(x => new SmartphoneIndexServiceModel()
