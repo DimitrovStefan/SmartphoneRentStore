@@ -2,15 +2,18 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using SmartphoneRentStore.Core.Contracts.Smartphone;
+    using SmartphoneRentStore.Core.Services.Smartphone;
     using SmartphoneRentStore.Infastructure.Data;
-
+    using SmartphoneRentStore.Infrastructure.Data.Common;
 
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            return services;
+            services.AddScoped<ISmartphoneService, SmartphoneService>();
 
+            return services;
         }
 
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
@@ -18,6 +21,8 @@
             var connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<SmartPhoneDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
