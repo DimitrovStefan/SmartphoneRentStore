@@ -1,6 +1,7 @@
 namespace SmartphoneRentStore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Core.Contracts.Smartphone;
     using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Models;
     using System.Diagnostics;
@@ -9,15 +10,20 @@ namespace SmartphoneRentStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ISmartphoneService smartphoneService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ISmartphoneService _smartphoneService)
         {
             _logger = logger;
+            smartphoneService = _smartphoneService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            var model = await smartphoneService.LastFourSmartphones();
+
             return View(model);
         }
 
