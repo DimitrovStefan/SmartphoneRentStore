@@ -1,13 +1,13 @@
 namespace SmartphoneRentStore.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartphoneRentStore.Core.Contracts;
-    using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Models;
     using System.Diagnostics;
 
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISmartphoneService smartphoneService;
@@ -20,6 +20,8 @@ namespace SmartphoneRentStore.Controllers
             smartphoneService = _smartphoneService;
         }
 
+
+        [AllowAnonymous] // don't need logg in 
         public async Task<IActionResult> Index()
         {
             var model = await smartphoneService.LastFourSmartphones();
@@ -28,6 +30,7 @@ namespace SmartphoneRentStore.Controllers
         }
 
 
+        [AllowAnonymous] // don't need logg in 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

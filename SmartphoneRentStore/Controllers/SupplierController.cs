@@ -2,11 +2,18 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.Supplier;
 
-    [Authorize]
-    public class SupplierController : Controller
+    public class SupplierController : BaseController
     {
+        private readonly ISupplierService supplierService;
+
+        public SupplierController(ISupplierService _supplierService)
+        {
+            supplierService = _supplierService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Become()
         {
