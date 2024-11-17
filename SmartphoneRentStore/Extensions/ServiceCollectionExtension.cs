@@ -12,6 +12,7 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ISmartphoneService, SmartphoneService>();
+            services.AddScoped<ISupplierService, SupplierService>();
 
             return services;
         }
