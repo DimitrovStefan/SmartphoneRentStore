@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using static SmartphoneRentStore.Infrastructure.Constants.DataConstants;
 
-
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     [Comment("Smartphone supplier")]
     public class Supplier
     {

@@ -24,7 +24,7 @@ namespace SmartphoneRentStore.Controllers
         [AllowAnonymous] // don't need logg in 
         public async Task<IActionResult> Index()
         {
-            var model = await smartphoneService.LastFourSmartphones();
+            var model = await smartphoneService.LastFourSmartphonesAsync();
 
             return View(model);
         }

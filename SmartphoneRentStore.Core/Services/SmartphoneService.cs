@@ -16,7 +16,7 @@
         }
 
 
-        public async Task<IEnumerable<SmartphoneIndexServiceModel>> LastFourSmartphones()
+        public async Task<IEnumerable<SmartphoneIndexServiceModel>> LastFourSmartphonesAsync()
         {
             return await repository
                 .AllReadOnly<SmartPhone>()

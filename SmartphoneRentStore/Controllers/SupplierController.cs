@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.Supplier;
+    using SmartphoneRentStore.Extensions;
 
     public class SupplierController : BaseController
     {
@@ -17,8 +18,14 @@
         [HttpGet]
         public async Task<IActionResult> Become()
         {
+            if (await supplierService.ExistsByIdAsync(User.Id())) // if any user what to become supplier and already exist any supplier
+                                                             // with this id => BadRequest
+            {
+                return BadRequest();
+            }
+
             var model = new BecomeSupplierFormModel();
-            
+
             return View(model);
         }
 
