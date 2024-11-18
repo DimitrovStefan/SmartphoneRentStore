@@ -14,9 +14,16 @@
             repository = _repository;
         }
 
-        public Task<bool> CreateAsync(string userId, string phonenumber)
+        public async Task CreateAsync(string userId, string phonenumber, string city)
         {
-            throw new NotImplementedException();
+            await repository.AddAsync(new Supplier()
+            {
+                UserId = userId,
+                PhoneNumber = phonenumber,
+                City = city
+            });
+
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsById(string userId) // check if any supplier exist by id 
@@ -30,14 +37,16 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> UserHasRentsAsync(string userId)
+        public async Task<bool> UserHasRentsAsync(string userId) // check if the user rent some smartphone
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<SmartPhone>()
+                .AnyAsync(x => x.RenterId == userId);
         }
 
-        public Task<bool> UserWithPhoneNumberExistsAsync(string phonenumber)
+        public async Task<bool> UserWithPhoneNumberExistsAsync(string phonenumber) // check if some supplier have the same phonenumber
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Supplier>()
+                .AnyAsync(x => x.PhoneNumber == phonenumber);
         }
     }
 }

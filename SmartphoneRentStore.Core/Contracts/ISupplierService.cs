@@ -8,6 +8,6 @@
 
         Task<bool> UserHasRentsAsync(string userId);
 
-        Task<bool> CreateAsync(string userId, string phonenumber);
+        Task CreateAsync(string userId, string phonenumber, string city);
     }
 }
