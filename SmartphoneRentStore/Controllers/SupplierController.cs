@@ -30,7 +30,7 @@
         [NotAnSupplier]
         public async Task<IActionResult> Become(BecomeSupplierFormModel supplier)
         {
-            if (await supplierService.UserWithPhoneNumberExistsAsync(User.Id())) // if exist user with the same phonenumber give me model error
+            if (await supplierService.UserWithPhoneNumberExistsAsync(supplier.PhoneNumber)) // if exist user with the same phonenumber give me model error
             {
                 ModelState.AddModelError(nameof(supplier.PhoneNumber), PhoneExits);
             }
