@@ -26,15 +26,12 @@
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsById(string userId) // check if any supplier exist by id 
+     
+
+        public async Task<bool> ExistsByIdAsync(string userId) // check if any supplier exist by id 
         {
             return await repository.AllReadOnly<Supplier>()
                 .AnyAsync(x => x.UserId == userId);
-        }
-
-        public Task<bool> ExistsByIdAsync(string userId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> UserHasRentsAsync(string userId) // check if the user rent some smartphone

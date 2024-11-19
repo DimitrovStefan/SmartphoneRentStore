@@ -10,9 +10,9 @@
         [StringLength(SupplierPhoneMaxLength,
             MinimumLength = SupplierPhoneMinLength,
             ErrorMessage = LengthMessage)]
-        public string PhoneNumber { get; set; } = null!;
         [Display(Name = "Phone number")]
-        [Phone()]
+        public string PhoneNumber { get; set; } = null!;
+        
 
         
         [Required(ErrorMessage = RequiredMessage)]
