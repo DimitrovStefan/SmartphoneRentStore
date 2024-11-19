@@ -34,6 +34,12 @@
                 .AnyAsync(x => x.UserId == userId);
         }
 
+        public async Task<int?> GetSupplierIdAsync(string userId) // will give me a id or null if don't find it
+        {
+            return (await repository.AllReadOnly<Supplier>()
+                .FirstOrDefaultAsync(x => x.UserId == userId))?.Id;
+        }
+
         public async Task<bool> UserHasRentsAsync(string userId) // check if the user rent some smartphone
         {
             return await repository.AllReadOnly<SmartPhone>()

@@ -9,5 +9,8 @@
         Task<bool> UserHasRentsAsync(string userId);
 
         Task CreateAsync(string userId, string phonenumber, string city);
+
+        Task<int?> GetSupplierIdAsync (string userId);
+
     }
 }

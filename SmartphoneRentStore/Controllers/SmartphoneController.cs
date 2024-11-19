@@ -2,11 +2,23 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.SmartPhone;
+    using SmartphoneRentStore.Extensions;
 
     // will be only for authorize users (from BaseController)
     public class SmartphoneController : BaseController
     {
+        private readonly ISmartphoneService smartphoneService;
+        private readonly ISupplierService supplierService;
+
+        public SmartphoneController(ISmartphoneService _smartphoneService, ISupplierService _supplierService)
+        {
+            smartphoneService = _smartphoneService;
+            supplierService = _supplierService;
+        }
+
+
         [AllowAnonymous] 
         [HttpGet]
         public async Task<IActionResult> All()
@@ -34,16 +46,47 @@
 
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            if (await supplierService.ExistsByIdAsync(User.Id()) == false) // If the user is not Supplier redirect to Become Supplier..
+            {
+                return RedirectToAction(nameof(SupplierController.Become), "Supplier");
+            }
+
+            var model = new SmartPhoneFormModel()
+            {
+                Categories = await smartphoneService.AllCategoriesAsync()
+            };
+
+            return View(model);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Add(SmartPhoneFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await supplierService.ExistsByIdAsync(User.Id()) == false) // If the user is not Supplier redirect to Become Supplier..
+            {
+                return RedirectToAction(nameof(SupplierController.Become), "Supplier");
+            }
+
+            if (await smartphoneService.CategoryExistsAsync(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Categories = await smartphoneService.AllCategoriesAsync();
+                
+                return View(model);
+            }
+
+            int? supplierId = await supplierService.GetSupplierIdAsync(User.Id());
+
+            int newSmartPhoneId = await smartphoneService.CreateAsync(model, supplierId ?? 0); // if is null
+
+            return RedirectToAction(nameof(Details), new { id = newSmartPhoneId });
         }
 
 
