@@ -20,18 +20,27 @@
 
 
         [AllowAnonymous] 
-        [HttpGet]
-        public async Task<IActionResult> All()
+        [HttpGet]                          //[FromQuery] Gets values from the query string.
+        public async Task<IActionResult> All([FromQuery] AllSmartPhonesQueryModel query)
         {
-            var model = new AllSmartPhonesQueryModel();
+            var model = await smartphoneService.AllAsync(
+                 query.Category,
+                 query.SearchTerm,
+                 query.Sorting,
+                 query.CurrentPage = Math.Max(1, query.CurrentPage),
+                 query.SmartphonesPerPage);
 
-            return View(model);
+            query.TotalSmartphoneCount = model.TotalSmartPhoneCount;
+            query.SmartPhones = model.SmartPhones;
+            
+            query.Categories = await smartphoneService.AllCategoriesNamesAsync();
+            return View(query);
         }
 
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var model = new AllSmartPhonesQueryModel();
+            //var model = new AllSmartPhonesQueryModel();
 
             return View();
         }

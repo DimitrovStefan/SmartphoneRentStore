@@ -275,7 +275,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", t =>
+                    b.ToTable("Categories", null, t =>
                         {
                             t.HasComment("Smartphone category");
                         });
@@ -346,7 +346,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SmartPhones", t =>
+                    b.ToTable("SmartPhones", null, t =>
                         {
                             t.HasComment("Smartphone to rent");
                         });
@@ -420,7 +420,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Suppliers", t =>
+                    b.ToTable("Suppliers", null, t =>
                         {
                             t.HasComment("Smartphone supplier");
                         });
