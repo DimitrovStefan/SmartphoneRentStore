@@ -29,5 +29,11 @@
         Task<bool> ExistsAsync(int id);
 
         Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id);
+
+        Task EditAsync(int smartphoneId, SmartPhoneFormModel model);
+
+        Task<bool> HasSupplierWithIdAsync(int smartphoneId, string userId); // check if we have the same Supplier
+
+        Task<SmartPhoneFormModel?> GetSmartphoneFormModelByIdAsync(int id);
     }
 }

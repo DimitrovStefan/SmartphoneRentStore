@@ -102,7 +102,7 @@
 
             if (await smartphoneService.CategoryExistsAsync(model.CategoryId) == false)
             {
-                ModelState.AddModelError(nameof(model.CategoryId), "");
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist"); // check if the current category exist
             }
 
             if (ModelState.IsValid == false)
@@ -123,7 +123,18 @@
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new SmartPhoneFormModel();
+            if (await smartphoneService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await smartphoneService.GetSmartphoneFormModelByIdAsync(id);
+            
 
             return View(model);
         }
@@ -132,7 +143,31 @@
         [HttpPost]
         public async Task<IActionResult> Edit(int id, SmartPhoneFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await smartphoneService.ExistsAsync(id) == false) // check if we have a samrtphone with exist id
+            {
+                return BadRequest();
+            }
+
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false) // check if we have supplier with current id
+            {
+                return Unauthorized();
+            }
+
+            if (await smartphoneService.CategoryExistsAsync(model.CategoryId) == false) // check if the current category exist
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Categories = await smartphoneService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            await smartphoneService.EditAsync(id, model);
+
+            return RedirectToAction(nameof(Details), new { id });
         }
 
 

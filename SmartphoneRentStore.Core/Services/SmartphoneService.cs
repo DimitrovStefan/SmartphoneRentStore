@@ -170,6 +170,49 @@
                 .ToListAsync();
         }
 
-       
+        public async Task EditAsync(int smartphoneId, SmartPhoneFormModel model)
+        {
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
+
+            if (smartphone != null)
+            {
+                smartphone.CategoryId = model.CategoryId;
+                smartphone.Description = model.Description;
+                smartphone.ImageUrl = model.ImageUrl;
+                smartphone.PricePerMonth = model.PricePerMonth;
+                smartphone.Title = model.Title;
+
+                await repository.SaveChangesAsync();
+            }
+
+        }
+
+        public async Task<bool> HasSupplierWithIdAsync(int smartphoneId, string userId)
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .AnyAsync(x => x.Id == smartphoneId && x.Supplier.UserId == userId);
+        }
+
+        public async Task<SmartPhoneFormModel?> GetSmartphoneFormModelByIdAsync(int id)
+        {
+            var smartphone = await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.Id == id)
+                .Select(x => new SmartPhoneFormModel()
+                {
+                    CategoryId = x.CategoryId,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    PricePerMonth = x.PricePerMonth,
+                    Title = x.Title,
+                })
+                .FirstOrDefaultAsync();
+
+            if (smartphone != null)
+            {
+                smartphone.Categories = await AllCategoriesAsync();
+            }
+
+            return smartphone;
+        }
     }
 }
