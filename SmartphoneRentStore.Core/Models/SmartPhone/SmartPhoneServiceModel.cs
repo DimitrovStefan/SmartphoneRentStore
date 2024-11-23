@@ -17,10 +17,6 @@
         [Display(Name = "Image URL")]
         public required string ImageUrl { get; set; }
 
-        [Required(ErrorMessage = RequiredMessage)]
-        [StringLength(SmartphoneDescriptionMaxLength, MinimumLength = SmartphoneDescriptionMinLength,
-            ErrorMessage = LengthMessage)]
-        public required string Description { get; set; }
 
         [Required(ErrorMessage = RequiredMessage)]
         [Range(typeof(decimal), SmartphonePriceMinLength,
@@ -34,7 +30,6 @@
         public required bool IsRented { get; set; }
 
         
-
 
     }
 }

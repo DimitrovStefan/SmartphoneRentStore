@@ -8,5 +8,6 @@ namespace SmartphoneRentStore.Extensions
         {
             return user.FindFirstValue(ClaimTypes.NameIdentifier);
         }
+
     }
 }

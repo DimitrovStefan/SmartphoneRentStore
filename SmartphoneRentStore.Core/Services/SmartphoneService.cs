@@ -51,15 +51,7 @@
 
             var smartphones = await smartphonesToShow.Skip((currentPage - 1) * SmartPhonesPerPage) 
                                                      .Take(SmartPhonesPerPage)
-                                                     .Select(x => new SmartPhoneServiceModel()
-                                                     { 
-                                                         Id = x.Id,
-                                                         Title = x.Title,
-                                                         Description = x.Description,
-                                                         ImageUrl = x.ImageUrl,
-                                                         PricePerMonth = x.PricePerMonth,
-                                                         IsRented = x.RenterId != null // only if is not null 
-                                                     })
+                                                     .SmartPhonesProjection() // Using IQuerable, Extensions/IQuareableSmartPhoneEx..
                                                      .ToListAsync();
             
             
@@ -93,6 +85,22 @@
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesBySupplierIdAsync(int supplierId)
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.SupplierId == supplierId)
+                .SmartPhonesProjection() // again using IQuareable to save memory
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesByUserIdAsync(string userId)
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.RenterId == userId)
+                .SmartPhonesProjection()
+                .ToListAsync();
+        }
+
         public async Task<bool> CategoryExistsAsync(int categoryId)
         {
             return await repository.AllReadOnly<Category>()
@@ -118,6 +126,34 @@
             return smartPhone.Id;
         }
 
+        public async Task<bool> ExistsAsync(int id) // check for any match by id
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .AnyAsync(x => x.Id == id);
+        }
+
+        public async Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.Id == id)
+                .Select(x => new SmartPhoneDetailsServiceModel()
+                {
+                    Id = x.Id,
+                    Supplier = new Models.Supplier.SupplierServiceModel()
+                    {
+                        Email = x.Supplier.User.Email, // from IdentityUser(user) ==> Email?
+                        PhoneNumber = x.Supplier.PhoneNumber
+                    },
+                    Category = x.Category.Name,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    IsRented = x.RenterId != null!,
+                    PricePerMonth = x.PricePerMonth,
+                    Title = x.Title
+                })
+                .FirstAsync(); // can return nullable, but every time we will use .ExistsAsync() so it's legit
+        }
+
 
         public async Task<IEnumerable<SmartphoneIndexServiceModel>> LastFourSmartphonesAsync()
         {
@@ -133,5 +169,7 @@
                 })
                 .ToListAsync();
         }
+
+       
     }
 }

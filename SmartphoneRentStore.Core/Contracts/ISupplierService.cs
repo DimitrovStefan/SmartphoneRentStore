@@ -1,4 +1,6 @@
-﻿namespace SmartphoneRentStore.Core.Contracts
+﻿using SmartphoneRentStore.Core.Models.SmartPhone;
+
+namespace SmartphoneRentStore.Core.Contracts
 {
     public interface ISupplierService
     {

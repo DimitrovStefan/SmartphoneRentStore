@@ -21,5 +21,13 @@
                                               int SmartPhonesPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesBySupplierIdAsync(int supplierId);
+
+        Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesByUserIdAsync(string userId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id);
     }
 }

@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SmartphoneRentStore.Core.Contracts;
+    using SmartphoneRentStore.Core.Models.SmartPhone;
     using SmartphoneRentStore.Infrastructure.Data.Common;
     using SmartphoneRentStore.Infrastructure.Data.Models;
 
@@ -26,7 +27,6 @@
             await repository.SaveChangesAsync();
         }
 
-     
 
         public async Task<bool> ExistsByIdAsync(string userId) // check if any supplier exist by id 
         {
@@ -34,12 +34,17 @@
                 .AnyAsync(x => x.UserId == userId);
         }
 
+        
+
         public async Task<int?> GetSupplierIdAsync(string userId) // will give me a id or null if don't find it
         {
             return (await repository.AllReadOnly<Supplier>()
                 .FirstOrDefaultAsync(x => x.UserId == userId))?.Id;
         }
 
+
+
+        
         public async Task<bool> UserHasRentsAsync(string userId) // check if the user rent some smartphone
         {
             return await repository.AllReadOnly<SmartPhone>()

@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Models.SmartPhone;
+    using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Extensions;
 
     // will be only for authorize users (from BaseController)
@@ -20,36 +21,56 @@
 
 
         [AllowAnonymous] 
-        [HttpGet]                          //[FromQuery] Gets values from the query string.
-        public async Task<IActionResult> All([FromQuery] AllSmartPhonesQueryModel query)
+        [HttpGet]                          //[FromQuery] Gets values exactly from the query string.
+        public async Task<IActionResult> All([FromQuery] AllSmartPhonesQueryModel model)
         {
-            var model = await smartphoneService.AllAsync(
-                 query.Category,
-                 query.SearchTerm,
-                 query.Sorting,
-                 query.CurrentPage = Math.Max(1, query.CurrentPage),
-                 query.SmartphonesPerPage);
+            var smartphones = await smartphoneService.AllAsync(
+                 model.Category,
+                 model.SearchTerm,
+                 model.Sorting,
+                 model.CurrentPage = Math.Max(1, model.CurrentPage),
+                 model.SmartphonesPerPage);
 
-            query.TotalSmartphoneCount = model.TotalSmartPhoneCount;
-            query.SmartPhones = model.SmartPhones;
-            
-            query.Categories = await smartphoneService.AllCategoriesNamesAsync();
-            return View(query);
+            model.TotalSmartphoneCount = smartphones.TotalSmartPhoneCount;
+            model.SmartPhones = smartphones.SmartPhones;
+
+            model.Categories = await smartphoneService.AllCategoriesNamesAsync();
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            //var model = new AllSmartPhonesQueryModel();
+            var userId = User.Id(); // Take my id
 
-            return View();
+            IEnumerable<SmartPhoneServiceModel> model;
+
+            if (await supplierService.ExistsByIdAsync(userId))
+            {
+                var supplierId = await supplierService.GetSupplierIdAsync(userId) ?? 0; // check if i'em a supplier and take my id
+                model = await smartphoneService.AllSmartphonesBySupplierIdAsync(supplierId); // here he take my models (smartphones) witch a added 
+            }
+            else
+            {
+                model = await smartphoneService.AllSmartphonesByUserIdAsync(userId);
+            }
+
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = new SmartPhoneDetailsViewModel();
-            
+            // First we check for existing id
+            if (await smartphoneService.ExistsAsync(id) == false) 
+            {
+                return BadRequest();
+            }
+
+            //Here we already know we have match with some id so we take it:
+            var model = await smartphoneService.SmartphoneDetailsByIdAsync(id);
+
+
             return View(model);
         }
 
