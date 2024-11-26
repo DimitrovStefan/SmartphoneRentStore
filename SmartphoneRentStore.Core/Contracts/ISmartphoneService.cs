@@ -32,8 +32,15 @@
 
         Task EditAsync(int smartphoneId, SmartPhoneFormModel model);
 
+        Task DeleteAsync(int smartphoneId);
+
         Task<bool> HasSupplierWithIdAsync(int smartphoneId, string userId); // check if we have the same Supplier
 
         Task<SmartPhoneFormModel?> GetSmartphoneFormModelByIdAsync(int id);
+
+        Task<bool> IsRentedAsync(int houseId);
+
+        Task RentAsync(int id, string userId);
+
     }
 }

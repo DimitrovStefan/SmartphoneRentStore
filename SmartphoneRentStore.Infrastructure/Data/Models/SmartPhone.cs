@@ -53,6 +53,10 @@
 
         [Comment("User id of the renterer")]
         public string? RenterId { get; set; }
-      
+
+       [Required]
+        [Comment("Used for delete")]
+        public bool isDeleted { get; set; }
+       
     }
 }

@@ -18,6 +18,8 @@ namespace SmartphoneRentStore.Core.Models.SmartPhone
 
         public int TotalSmartphoneCount { get; set; }
 
+        public bool isDeleted { get; set; }
+
         public required virtual IEnumerable<string> Categories { get; set; }
 
         public required virtual IEnumerable<SmartPhoneServiceModel> SmartPhones { get; set; } = new List<SmartPhoneServiceModel>();

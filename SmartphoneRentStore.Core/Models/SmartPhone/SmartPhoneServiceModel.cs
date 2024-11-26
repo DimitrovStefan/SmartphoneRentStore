@@ -29,6 +29,8 @@
         [Display(Name = "Is Rented")]
         public required bool IsRented { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         
 
     }

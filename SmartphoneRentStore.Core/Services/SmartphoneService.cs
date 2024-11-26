@@ -18,10 +18,10 @@
             repository = _repository;
         }
 
-        public async Task<SmartPhoneQueryServiceModel> AllAsync(string? category = null, 
-                                                                string? searchTern = null, 
-                                                                SmartPhoneSorting sorting = SmartPhoneSorting.Newest, 
-                                                                int currentPage = 1, 
+        public async Task<SmartPhoneQueryServiceModel> AllAsync(string? category = null,
+                                                                string? searchTern = null,
+                                                                SmartPhoneSorting sorting = SmartPhoneSorting.Newest,
+                                                                int currentPage = 1,
                                                                 int SmartPhonesPerPage = 1)
         {
             var smartphonesToShow = repository.AllReadOnly<SmartPhone>(); // Take all in IQueryable
@@ -37,11 +37,12 @@
 
                 smartphonesToShow = smartphonesToShow.Where(x => x.Title.ToLower().Contains(regularSearchTern) ||
                                                                  x.Description.ToLower().Contains(regularSearchTern) ||
-                                                                 x.ImageUrl.ToLower().Contains(regularSearchTern));
+                                                                 x.ImageUrl.ToLower().Contains(regularSearchTern) &&
+                                                                 x.isDeleted == false);
             }
 
             smartphonesToShow = sorting switch // (switch expression) sorting
-            { 
+            {
                 SmartPhoneSorting.Price => smartphonesToShow.OrderBy(x => x.PricePerMonth),
                 SmartPhoneSorting.NotRentedFirst => smartphonesToShow
                                                     .OrderBy(y => y.RenterId != null) // first order by rented
@@ -49,12 +50,12 @@
                 _ => smartphonesToShow.OrderByDescending(y => y.Id) // default sorting by newest
             };
 
-            var smartphones = await smartphonesToShow.Skip((currentPage - 1) * SmartPhonesPerPage) 
+            var smartphones = await smartphonesToShow.Skip((currentPage - 1) * SmartPhonesPerPage)
                                                      .Take(SmartPhonesPerPage)
                                                      .SmartPhonesProjection() // Using IQuerable, Extensions/IQuareableSmartPhoneEx..
                                                      .ToListAsync();
-            
-            
+
+
 
             int totalSmartphone = await smartphonesToShow.CountAsync();
 
@@ -89,6 +90,7 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.SupplierId == supplierId)
+                .Where(x => x.isDeleted == false) // check for is avaliable
                 .SmartPhonesProjection() // again using IQuareable to save memory
                 .ToListAsync();
         }
@@ -97,6 +99,7 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.RenterId == userId)
+                .Where(x => x.isDeleted == false)
                 .SmartPhonesProjection()
                 .ToListAsync();
         }
@@ -111,14 +114,16 @@
         public async Task<int> CreateAsync(SmartPhoneFormModel model, int supplierId)
         {
             SmartPhone smartPhone = new SmartPhone()
-            { 
+            {
                 Description = model.Description,
                 SupplierId = supplierId,
                 CategoryId = model.CategoryId,
                 ImageUrl = model.ImageUrl,
                 PricePerMonth = model.PricePerMonth,
-                Title = model.Title
+                Title = model.Title,
+                isDeleted = model.IsDeleted
             };
+
 
             await repository.AddAsync(smartPhone);
             await repository.SaveChangesAsync();
@@ -129,6 +134,7 @@
         public async Task<bool> ExistsAsync(int id) // check for any match by id
         {
             return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.isDeleted == false)
                 .AnyAsync(x => x.Id == id);
         }
 
@@ -136,6 +142,7 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
+                .Where(x => x.isDeleted == false)
                 .Select(x => new SmartPhoneDetailsServiceModel()
                 {
                     Id = x.Id,
@@ -159,6 +166,7 @@
         {
             return await repository
                 .AllReadOnly<SmartPhone>()
+                .Where(x => x.isDeleted == false)
                 .OrderByDescending(x => x.Id)
                 .Take(4)
                 .Select(x => new SmartphoneIndexServiceModel()
@@ -174,7 +182,7 @@
         {
             var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
 
-            if (smartphone != null)
+            if (smartphone != null && smartphone.isDeleted == false)
             {
                 smartphone.CategoryId = model.CategoryId;
                 smartphone.Description = model.Description;
@@ -187,6 +195,14 @@
 
         }
 
+
+        public async Task DeleteAsync(int smartphoneId)
+        {
+            await repository.DeleteAsync<SmartPhone>(smartphoneId);
+            await repository.SaveChangesAsync();
+        }
+
+
         public async Task<bool> HasSupplierWithIdAsync(int smartphoneId, string userId)
         {
             return await repository.AllReadOnly<SmartPhone>()
@@ -197,6 +213,7 @@
         {
             var smartphone = await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
+                .Where(x => x.isDeleted == false)
                 .Select(x => new SmartPhoneFormModel()
                 {
                     CategoryId = x.CategoryId,
@@ -213,6 +230,31 @@
             }
 
             return smartphone;
+        }
+
+        public async Task<bool> IsRentedAsync(int smartphoneId)
+        {
+            bool result = false;
+
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
+
+            if (smartphone != null)
+            {
+                result = smartphone.RenterId != null;
+            }
+
+            return result;
+        }
+
+        public async Task RentAsync(int id, string userId)
+        {
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(id);
+
+            if (smartphone != null)
+            {
+                smartphone.RenterId = userId;
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }

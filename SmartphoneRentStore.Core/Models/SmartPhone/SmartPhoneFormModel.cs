@@ -35,6 +35,8 @@
         public int CategoryId { get; set; }
 
 
+        public bool IsDeleted { get; set; }
+
         public IEnumerable<SmartPhoneCategoryServiceModel> Categories { get; set; } =
             new List<SmartPhoneCategoryServiceModel>();
 
