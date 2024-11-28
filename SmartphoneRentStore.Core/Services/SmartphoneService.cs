@@ -37,8 +37,7 @@
 
                 smartphonesToShow = smartphonesToShow.Where(x => x.Title.ToLower().Contains(regularSearchTern) ||
                                                                  x.Description.ToLower().Contains(regularSearchTern) ||
-                                                                 x.ImageUrl.ToLower().Contains(regularSearchTern) &&
-                                                                 x.isDeleted == false);
+                                                                 x.ImageUrl.ToLower().Contains(regularSearchTern));
             }
 
             smartphonesToShow = sorting switch // (switch expression) sorting
@@ -90,7 +89,6 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.SupplierId == supplierId)
-                .Where(x => x.isDeleted == false) // check for is avaliable
                 .SmartPhonesProjection() // again using IQuareable to save memory
                 .ToListAsync();
         }
@@ -99,7 +97,6 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.RenterId == userId)
-                .Where(x => x.isDeleted == false)
                 .SmartPhonesProjection()
                 .ToListAsync();
         }
@@ -120,8 +117,7 @@
                 CategoryId = model.CategoryId,
                 ImageUrl = model.ImageUrl,
                 PricePerMonth = model.PricePerMonth,
-                Title = model.Title,
-                isDeleted = model.IsDeleted
+                Title = model.Title
             };
 
 
@@ -134,7 +130,6 @@
         public async Task<bool> ExistsAsync(int id) // check for any match by id
         {
             return await repository.AllReadOnly<SmartPhone>()
-                .Where(x => x.isDeleted == false)
                 .AnyAsync(x => x.Id == id);
         }
 
@@ -142,7 +137,6 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
-                .Where(x => x.isDeleted == false)
                 .Select(x => new SmartPhoneDetailsServiceModel()
                 {
                     Id = x.Id,
@@ -166,7 +160,6 @@
         {
             return await repository
                 .AllReadOnly<SmartPhone>()
-                .Where(x => x.isDeleted == false)
                 .OrderByDescending(x => x.Id)
                 .Take(4)
                 .Select(x => new SmartphoneIndexServiceModel()
@@ -182,7 +175,7 @@
         {
             var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
 
-            if (smartphone != null && smartphone.isDeleted == false)
+            if (smartphone != null)
             {
                 smartphone.CategoryId = model.CategoryId;
                 smartphone.Description = model.Description;
@@ -213,7 +206,6 @@
         {
             var smartphone = await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
-                .Where(x => x.isDeleted == false)
                 .Select(x => new SmartPhoneFormModel()
                 {
                     CategoryId = x.CategoryId,
@@ -246,15 +238,6 @@
             return result;
         }
 
-        public async Task RentAsync(int id, string userId)
-        {
-            var smartphone = await repository.GetByIdAsync<SmartPhone>(id);
-
-            if (smartphone != null)
-            {
-                smartphone.RenterId = userId;
-                await repository.SaveChangesAsync();
-            }
-        }
+       
     }
 }

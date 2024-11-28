@@ -99,8 +99,7 @@
                 PricePerMonth = 350.00M,
                 CategoryId = HighCategory.Id,
                 SupplierId = Supplier.Id,
-                RenterId = BuyerUser.Id,
-                isDeleted = false
+                RenterId = BuyerUser.Id
             };
 
             SecondSmartPhone = new SmartPhone()
@@ -112,8 +111,7 @@
                 PricePerMonth = 400.00M,
                 CategoryId = HighCategory.Id,
                 SupplierId = Supplier.Id,
-                RenterId = BuyerUser.Id,
-                isDeleted = false
+                RenterId = BuyerUser.Id
             };
 
             ThirdSmartPhone = new SmartPhone()
@@ -125,8 +123,7 @@
                 PricePerMonth = 100.00M,
                 CategoryId = LowCategory.Id,
                 SupplierId = Supplier.Id,
-                RenterId = BuyerUser.Id,
-                isDeleted = false
+                RenterId = BuyerUser.Id
             };
         }
 

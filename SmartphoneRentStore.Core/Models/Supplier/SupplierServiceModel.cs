@@ -5,6 +5,7 @@
 
     public class SupplierServiceModel
     {
+
         [Display(Name = "Phone number")]
         public required string PhoneNumber { get; set; }
 

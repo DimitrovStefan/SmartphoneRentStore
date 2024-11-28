@@ -6,6 +6,7 @@
     using SmartphoneRentStore.Core.Models.SmartPhone;
     using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Extensions;
+    using static SmartphoneRentStore.Core.Constants.MessageConstants;
 
     // will be only for authorize users (from BaseController)
     public class SmartphoneController : BaseController
@@ -20,7 +21,7 @@
         }
 
 
-        [AllowAnonymous] 
+        [AllowAnonymous]
         [HttpGet]                          //[FromQuery] Gets values exactly from the query string.
         public async Task<IActionResult> All([FromQuery] AllSmartPhonesQueryModel model)
         {
@@ -35,6 +36,8 @@
             model.SmartPhones = smartphones.SmartPhones;
 
             model.Categories = await smartphoneService.AllCategoriesNamesAsync();
+
+
             return View(model);
         }
 
@@ -62,7 +65,7 @@
         public async Task<IActionResult> Details(int id)
         {
             // First we check for existing id
-            if (await smartphoneService.ExistsAsync(id) == false) 
+            if (await smartphoneService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
@@ -108,7 +111,7 @@
             if (ModelState.IsValid == false)
             {
                 model.Categories = await smartphoneService.AllCategoriesAsync();
-                
+
                 return View(model);
             }
 
@@ -134,7 +137,8 @@
             }
 
             var model = await smartphoneService.GetSmartphoneFormModelByIdAsync(id);
-            
+
+
 
             return View(model);
         }
@@ -165,23 +169,47 @@
                 return View(model);
             }
 
-            await smartphoneService.EditAsync(id, model);
+            await smartphoneService.DeleteAsync(id);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(All));
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new SmartPhoneDetailsViewModel();
+            if (await smartphoneService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            var smartphone = await smartphoneService.SmartphoneDetailsByIdAsync(id);
+
+            var model = new SmartPhoneFormModel()
+            {
+                Description = smartphone.Description,
+                IsDeleted = smartphone.IsDeleted,
+                ImageUrl = smartphone.ImageUrl,
+                Title = smartphone.Title,
+                PricePerMonth = smartphone.PricePerMonth
+            };
 
             return View(model);
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id, SmartPhoneFormModel model)
+        public async Task<IActionResult> Delete(SmartPhoneDetailsViewModel model)
         {
+            if (await smartphoneService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+
+
+            await smartphoneService.DeleteAsync(model.Id);
+
             return RedirectToAction(nameof(All));
         }
 
@@ -189,14 +217,16 @@
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
-            return RedirectToAction(nameof(Mine));
+            
+            return RedirectToAction(nameof(All));
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Leave(int id)
-        {
-            return RedirectToAction(nameof(Mine));
-        }
+
+
     }
+
 }
+
+
+

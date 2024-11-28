@@ -38,9 +38,8 @@
 
         Task<SmartPhoneFormModel?> GetSmartphoneFormModelByIdAsync(int id);
 
-        Task<bool> IsRentedAsync(int houseId);
+   
 
-        Task RentAsync(int id, string userId);
 
     }
 }
