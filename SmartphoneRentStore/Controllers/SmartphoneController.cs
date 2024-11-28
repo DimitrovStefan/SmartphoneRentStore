@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartphoneRentStore.Core.Contracts;
+    using SmartphoneRentStore.Core.Exeptions;
     using SmartphoneRentStore.Core.Models.SmartPhone;
     using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Extensions;
@@ -13,11 +14,15 @@
     {
         private readonly ISmartphoneService smartphoneService;
         private readonly ISupplierService supplierService;
+        private readonly ILogger<SmartphoneController> logger;
 
-        public SmartphoneController(ISmartphoneService _smartphoneService, ISupplierService _supplierService)
+        public SmartphoneController(ISmartphoneService _smartphoneService, 
+                                    ISupplierService _supplierService, 
+                                    ILogger<SmartphoneController> _logger)
         {
             smartphoneService = _smartphoneService;
             supplierService = _supplierService;
+            logger = _logger;
         }
 
 
@@ -258,7 +263,17 @@
                 return Unauthorized();
             }
 
-            await smartphoneService.LeaveAsync(id);
+            try
+            {
+                await smartphoneService.LeaveAsync(id, User.Id());
+            }
+            catch (UnauthorizedActionExeption ex)
+            {
+                logger.LogError(ex, "Smartphone Controle/Leave");
+
+                return Unauthorized();
+            }
+            
 
             return RedirectToAction(nameof(All));
         }
