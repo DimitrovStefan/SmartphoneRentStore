@@ -47,7 +47,7 @@ namespace SmartphoneRentStore.Infrastructure.Data.Common
 
         public async Task DeleteAsync<T>(object id) where T : class
         {
-            T? entity = await GetByIdAsync<T>(id);
+            T? entity = await GetByIdAsync<T>(id); // we found it and remove it
 
             if (entity != null)
             {

@@ -178,17 +178,21 @@
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await smartphoneService.ExistsAsync(id) == false)
+            if (await smartphoneService.ExistsAsync(id) == false) // check for exist smaryphone
             {
                 return BadRequest();
             }
 
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false) // check for exist supplier
+            {
+                return Unauthorized();
+            }
+
             var smartphone = await smartphoneService.SmartphoneDetailsByIdAsync(id);
 
-            var model = new SmartPhoneFormModel()
+            var model = new SmartPhoneDetailsViewModel()
             {
                 Description = smartphone.Description,
-                IsDeleted = smartphone.IsDeleted,
                 ImageUrl = smartphone.ImageUrl,
                 Title = smartphone.Title,
                 PricePerMonth = smartphone.PricePerMonth
@@ -206,7 +210,10 @@
                 return BadRequest();
             }
 
-
+            if (await smartphoneService.HasSupplierWithIdAsync(model.Id, User.Id()) == false) // check for exist supplier
+            {
+                return Unauthorized();
+            }
 
             await smartphoneService.DeleteAsync(model.Id);
 
