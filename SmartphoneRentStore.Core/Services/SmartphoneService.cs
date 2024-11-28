@@ -238,6 +238,40 @@
             return result;
         }
 
-       
+        public async Task<bool> IsRentedByUserWithIdAsync(int smartphoneId, string userId)
+        {
+            bool result = false;
+
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
+
+            if (smartphone != null)
+            {
+                result = smartphone.RenterId == userId; // if it is the current user will give me back true;
+            }
+
+            return result;
+        }
+
+        public async Task RentAsync(int id, string userId)
+        {
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(id);
+
+            if (smartphone != null)
+            {
+                smartphone.RenterId = userId;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task LeaveAsync(int smartphoneId)
+        {
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
+
+            if (smartphone != null)
+            {
+                smartphone.RenterId = null;
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }

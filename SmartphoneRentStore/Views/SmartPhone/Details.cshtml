@@ -2,6 +2,7 @@
 @using static SmartphoneRentStore.Extensions.ClaimsPrincipalExtension;
 @model SmartPhoneDetailsServiceModel
 @inject ISupplierService supplierService;
+@inject ISmartphoneService smartPhoneService;
 
 @{
     ViewBag.Title = "Smartphone Details";
@@ -26,7 +27,7 @@
             <p>Category: <b>@Model.Category</b></p>
             <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
             <div class="form-inline">
-                @if (this.User.Identity.IsAuthenticated)
+                 @if (await smartPhoneService.HasSupplierWithIdAsync(Model.Id, User.Id()))
                 {
                     <a class="btn btn-warning" asp-controller="Smartphone" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
@@ -41,7 +42,7 @@
                         <input class="btn btn-primary" type="submit" value="Rent" />
                     </form>
                 }
-                else
+                else if (await smartPhoneService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                 {
                     <form class="ml-2" asp-controller="Smartphone" asp-action="Leave"
                           asp-route-id="@Model.Id" method="post">
@@ -49,7 +50,6 @@
                     </form>
                 }
                 
-            </div>
             <p></p>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">

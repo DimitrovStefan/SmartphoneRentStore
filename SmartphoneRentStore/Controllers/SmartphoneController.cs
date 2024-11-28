@@ -222,13 +222,46 @@
 
 
         [HttpPost]
-        public async Task<IActionResult> Rent(int id)
+        public async Task<IActionResult> RentAsync(int id)
         {
-            
+            if (await smartphoneService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await supplierService.ExistsByIdAsync(User.Id())) // check for exist supplier
+            {
+                return Unauthorized();
+            }
+
+            if (await smartphoneService.IsRentedAsync(id)) // check if it is already rented
+            {
+                return BadRequest();
+            }
+
+
+            await smartphoneService.RentAsync(id, User.Id()); // make rent
+
             return RedirectToAction(nameof(All));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Leave(int id)
+        {
+            if (await smartphoneService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
 
+            if (await smartphoneService.IsRentedByUserWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await smartphoneService.LeaveAsync(id);
+
+            return RedirectToAction(nameof(All));
+        }
 
 
     }

@@ -1,4 +1,10 @@
-﻿@model SmartPhoneServiceModel 
+﻿@using SmartphoneRentStore.Core.Contracts
+@using static SmartphoneRentStore.Extensions.ClaimsPrincipalExtension;
+@model SmartPhoneServiceModel 
+@inject ISupplierService supplierService;
+@inject ISmartphoneService smartphoneService;
+
+
 <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Smartphone Image"> <div class="card-body text-center">
@@ -10,18 +16,30 @@
             
             @if (this.User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Smartphone" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-
-                <a asp-controller="Smartphone" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a> <p></p> @if (!Model.IsRented)
+                if (await smartphoneService.HasSupplierWithIdAsync(Model.Id, User.Id()))
                 {
-                    <form class="input-group-sm" asp-controller="Smartphone" asp-action="Rent" asp-route-id="@Model.Id" method="post"> 
-                        <input class="btn btn-primary" type="submit" value="Rent" /> </form>
+                    <a asp-area="" asp-controller="Smartphone" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-area="" asp-controller="Smartphone" asp-action="Delete" asp-route-id="@Model.Id"
+                    class="btn btn-danger">Delete</a>
                 }
-                else
+
+                <p></p>
+                @if (!Model.IsRented && ((await supplierService.ExistsByIdAsync(User.Id())) == false))
                 {
-                    <form asp-controller="Smartphone" asp-action="Rent" asp-route-id="@Model.Id" method="post"> 
-                        <input class="btn btn-primary" type="submit" value="Rent" /> </form>
-                }          }
+                    <form class="input-group-sm" asp-controller="Smartphone"
+                    asp-area="" asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="Rent" />
+                    </form>
+                }
+                else if (await smartphoneService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
+                {
+                    <form asp-area="" asp-controller="Smartphone" asp-action="Leave"
+                          asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="Leave" />
+                    </form>
+                }
+            }    
         </div>
     </div>
 </div>
