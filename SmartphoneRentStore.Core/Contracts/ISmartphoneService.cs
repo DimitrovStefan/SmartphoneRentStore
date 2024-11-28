@@ -44,7 +44,7 @@
 
         Task RentAsync(int id, string userId);
         
-        Task LeaveAsync(int smartphoneId);
+        Task LeaveAsync(int smartphoneId, string userId);
 
     }
 }

@@ -3,10 +3,12 @@
     using Microsoft.EntityFrameworkCore;
     using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Enumerations;
+    using SmartphoneRentStore.Core.Exeptions;
     using SmartphoneRentStore.Core.Models.Home;
     using SmartphoneRentStore.Core.Models.SmartPhone;
     using SmartphoneRentStore.Infrastructure.Data.Common;
     using SmartphoneRentStore.Infrastructure.Data.Models;
+    using static SmartphoneRentStore.Core.Constants.MessageConstants;
 
 
     public class SmartphoneService : ISmartphoneService
@@ -263,12 +265,17 @@
             }
         }
 
-        public async Task LeaveAsync(int smartphoneId)
+        public async Task LeaveAsync(int smartphoneId, string userId)
         {
             var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
 
             if (smartphone != null)
             {
+                if (smartphone.RenterId != userId)
+                {
+                    throw new UnauthorizedActionExeption(NotRenterUserError);
+                }
+
                 smartphone.RenterId = null;
                 await repository.SaveChangesAsync();
             }

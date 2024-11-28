@@ -12,6 +12,8 @@
 
         public const string SuccessRented = "SuccessRented";
 
+        public const string NotRenterUserError = "The user is not the renter!";
+
 
     }
 }
