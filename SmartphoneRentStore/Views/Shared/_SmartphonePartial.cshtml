@@ -12,7 +12,8 @@
             
             <h6> Price Per Month: <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b> </h6> 
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6> <br /> 
-            <a asp-controller="Smartphone" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a> 
+            <a asp-controller="Smartphone" asp-action="Details" asp-route-id="@Model.Id" 
+            asp-route-information="@Model.GetInformation()" class="btn btn-success">Details</a> 
             
             @if (this.User.Identity.IsAuthenticated)
             {
@@ -30,14 +31,14 @@
                 {
                     <form class="input-group-sm" asp-controller="Smartphone"
                     asp-area="" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Rent" />
+                        <input class="btn btn-outline-primary fw-bolder" type="submit" value="Rent" />
                     </form>
                 }
                 else if (await smartphoneService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                 {
                     <form asp-area="" asp-controller="Smartphone" asp-action="Leave"
                           asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Leave" />
+                        <input class="btn btn-outline-primary fw-bolder" type="submit" value="Leave" />
                     </form>
                 }
             }    

@@ -1,10 +1,11 @@
 ﻿namespace SmartphoneRentStore.Core.Models.SmartPhone
 {
+    using SmartphoneRentStore.Core.Contracts;
     using System.ComponentModel.DataAnnotations;
     using static SmartphoneRentStore.Core.Constants.MessageConstants;
     using static SmartphoneRentStore.Infrastructure.Constants.DataConstants;
 
-    public class SmartPhoneFormModel
+    public class SmartPhoneFormModel : ISmartphoneModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(SmartphoneTitleMaxLength, MinimumLength = SmartphoneTitleMinLength,

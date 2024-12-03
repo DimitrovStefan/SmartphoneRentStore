@@ -1,6 +1,8 @@
-﻿namespace SmartphoneRentStore.Core.Models.SmartPhone
+﻿using SmartphoneRentStore.Core.Contracts;
+
+namespace SmartphoneRentStore.Core.Models.SmartPhone
 {
-    public class SmartPhoneDetailsViewModel
+    public class SmartPhoneDetailsViewModel : ISmartphoneModel
     {
 
         public int Id { get; set; }

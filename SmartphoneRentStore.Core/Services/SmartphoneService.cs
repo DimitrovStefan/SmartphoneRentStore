@@ -167,6 +167,7 @@
                 .Select(x => new SmartphoneIndexServiceModel()
                 {
                     Id = x.Id,
+                    Description = x.Description,
                     ImageUrl = x.ImageUrl,
                     Title = x.Title
                 })

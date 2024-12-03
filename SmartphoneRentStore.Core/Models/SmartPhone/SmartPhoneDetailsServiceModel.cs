@@ -5,7 +5,6 @@
 
     public class SmartPhoneDetailsServiceModel : SmartPhoneServiceModel
     {
-        public required string Description { get; set; }
 
         public required string Category { get; set; }
 

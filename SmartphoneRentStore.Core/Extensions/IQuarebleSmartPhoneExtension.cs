@@ -11,6 +11,7 @@ namespace System.Linq
             {
                 Id = x.Id,
                 PricePerMonth = x.PricePerMonth,
+                Description = x.Description,
                 ImageUrl = x.ImageUrl,
                 IsRented = x.RenterId != null,
                 Title = x.Title

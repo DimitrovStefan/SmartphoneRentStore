@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Exeptions;
+    using SmartphoneRentStore.Core.Extensions;
     using SmartphoneRentStore.Core.Models.SmartPhone;
     using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Extensions;
@@ -67,7 +68,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             // First we check for existing id
             if (await smartphoneService.ExistsAsync(id) == false)
@@ -78,6 +79,10 @@
             //Here we already know we have match with some id so we take it:
             var model = await smartphoneService.SmartphoneDetailsByIdAsync(id);
 
+            if (information != model.GetInformation()) // For Security
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
@@ -124,7 +129,7 @@
 
             int newSmartPhoneId = await smartphoneService.CreateAsync(model, supplierId ?? 0); // if is null
 
-            return RedirectToAction(nameof(Details), new { id = newSmartPhoneId });
+            return RedirectToAction(nameof(Details), new { id = newSmartPhoneId, information = model.GetInformation()});
         }
 
 
@@ -174,9 +179,9 @@
                 return View(model);
             }
 
-            await smartphoneService.DeleteAsync(id);
+            await smartphoneService.EditAsync(id, model);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Details), new { id, information = model.GetInformation()});
         }
 
 
@@ -221,7 +226,7 @@
             }
 
             await smartphoneService.DeleteAsync(model.Id);
-
+             
             return RedirectToAction(nameof(All));
         }
 

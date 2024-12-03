@@ -13,6 +13,7 @@
         {
             services.AddScoped<ISmartphoneService, SmartphoneService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IStatisticService, StatisticService>();
 
             return services;
         }

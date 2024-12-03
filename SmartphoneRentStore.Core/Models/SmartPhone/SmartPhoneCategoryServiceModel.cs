@@ -6,6 +6,5 @@
 
         public string Name { get; set; } = string.Empty;
 
-        public bool  isDeleted { get; set; }
     }
 }
