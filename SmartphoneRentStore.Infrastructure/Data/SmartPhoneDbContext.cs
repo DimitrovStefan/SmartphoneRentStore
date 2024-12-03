@@ -5,7 +5,7 @@ using SmartphoneRentStore.Infrastructure.Data.SeedDb;
 
 namespace SmartphoneRentStore.Infastructure.Data
 {
-    public class SmartPhoneDbContext : IdentityDbContext
+    public class SmartPhoneDbContext : IdentityDbContext<ApplicationUser>
     {
         public SmartPhoneDbContext(DbContextOptions<SmartPhoneDbContext> options)
             : base(options)

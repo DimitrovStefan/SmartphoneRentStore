@@ -5,8 +5,8 @@
 
     internal class SeedData
     {
-        public IdentityUser SupplierUser { get; set; }
-        public IdentityUser BuyerUser { get; set; }
+        public ApplicationUser SupplierUser { get; set; }
+        public ApplicationUser BuyerUser { get; set; }
 
         public Supplier Supplier { get; set; }
 
@@ -29,9 +29,9 @@
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            SupplierUser = new IdentityUser()
+            SupplierUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "supplier@mail.com",
@@ -43,7 +43,7 @@
             SupplierUser.PasswordHash =
                  hasher.HashPassword(SupplierUser, "supplier123");
 
-            BuyerUser = new IdentityUser()
+            BuyerUser = new ApplicationUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "buyer@mail.com",

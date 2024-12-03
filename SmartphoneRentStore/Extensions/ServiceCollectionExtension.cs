@@ -6,6 +6,7 @@
     using SmartphoneRentStore.Core.Services;
     using SmartphoneRentStore.Infastructure.Data;
     using SmartphoneRentStore.Infrastructure.Data.Common;
+    using SmartphoneRentStore.Infrastructure.Data.Models;
 
     public static class ServiceCollectionExtension
     {
@@ -34,7 +35,7 @@
 
         public static IServiceCollection AddApplicationidentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequireNonAlphanumeric = true;
