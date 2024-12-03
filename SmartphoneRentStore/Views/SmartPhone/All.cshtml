@@ -49,13 +49,14 @@
 
     @{
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.SmartPhones.Any();
-    } <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end"> 
-        <a class="btn btn-primary @(shouldButtonBeDisabled ? "disabled" : string.Empty)" asp-controller="Smartphone" asp-action="All" asp-route-currentPage="@(Model.CurrentPage + 1)" asp-route-category="@Model.Category" asp-route-searchTerm="@Model.SearchTerm" asp-route-sorting="@((int)Model.Sorting)">>></a> </div>
+    } <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary @(shouldButtonBeDisabled ? "disabled" : string.Empty)" asp-controller="Smartphone" asp-action="All" asp-route-currentPage="@(Model.CurrentPage + 1)" asp-route-category="@Model.Category" asp-route-searchTerm="@Model.SearchTerm" asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </div>
 </div> @if (!Model.SmartPhones.Any())
 {
     <h2 class="text-center">No smartphones found by the given criteria!</h2>
 } <div class="row">
-    
+
     @foreach (var smartphone in Model.SmartPhones)
     {
         <partial name="_SmartphonePartial" model="@smartphone" />

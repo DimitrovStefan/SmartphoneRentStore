@@ -1,7 +1,8 @@
-﻿using System.Security.Claims;
-
-namespace SmartphoneRentStore.Extensions
+﻿namespace SmartphoneRentStore.Extensions
 {
+    using System.Security.Claims;
+
+
     public static class ClaimsPrincipalExtension
     {
         public static string Id(this ClaimsPrincipal user)

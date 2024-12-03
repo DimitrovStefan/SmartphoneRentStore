@@ -1,4 +1,6 @@
-﻿<ul class="navbar-nav flex-grow-1">
+﻿@inject ISupplierService supplierService
+
+<ul class="navbar-nav flex-grow-1">
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="SmartPhone" asp-action="All">All Smartphones</a>
     </li>
@@ -7,8 +9,11 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="SmartPhone" asp-action="Mine">My Smarphones</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SmartPhone" asp-action="Add">Add Smartphone</a>
-        </li>
+        @if (await supplierService.ExistsByIdAsync(User.Id()))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="SmartPhone" asp-action="Add">Add Smartphone</a>
+            </li>
+        }
     }
 </ul>
