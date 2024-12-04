@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartphoneRentStore.Extensions.DependencyInjection;
 using SmartphoneRentStore.ModelBinders;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SmartphoneRentStore.Infastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationidentity(builder.Configuration);

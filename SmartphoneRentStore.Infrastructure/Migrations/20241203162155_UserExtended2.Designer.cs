@@ -12,7 +12,7 @@ using SmartphoneRentStore.Infastructure.Data;
 namespace SmartphoneRentStore.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartPhoneDbContext))]
-    [Migration("20241203154607_UserExtended2")]
+    [Migration("20241203162155_UserExtended2")]
     partial class UserExtended2
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -241,7 +241,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f69a030-e62b-4eb4-b100-e0d257a8072c",
+                            ConcurrencyStamp = "79240092-92be-4eba-b2e8-eb2ec80d97b0",
                             Email = "supplier@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -249,9 +249,9 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "supplier@mail.com",
                             NormalizedUserName = "supplier@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDv8JdwKmX8aKMw6SmVFtMPuqMrXpggobKVryNPlqn05xGsvDEFI7elVSbKYSGJRyQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFUekDRIA+NxKpiL5pENzfCO+caKC0mVWzBMXt6Hzu5kzhSV9aIj+KX9Dmyx69LyHQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "945b25eb-c0f2-491b-83e9-ca36c431ab82",
+                            SecurityStamp = "c4a520ce-2d0d-4b21-ba6c-d9802f96dd0f",
                             TwoFactorEnabled = false,
                             UserName = "supplier@mail.com"
                         },
@@ -259,7 +259,7 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3594897c-908b-4fc7-946f-441534d68beb",
+                            ConcurrencyStamp = "2b76469f-6d68-42a8-8204-3861763a58e6",
                             Email = "buyer@mail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -267,9 +267,9 @@ namespace SmartphoneRentStore.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "buyer@mail.com",
                             NormalizedUserName = "buyer@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEjdcqqe7DgAydrLF0LJ0Wh+Kmn++Sktf0ucZhBsg/kSrfZm5SercsWidI9KUUqkWw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKzwu0jCbYV1AW7kNPBsBFI4+I3wniJFD3FBID+eychbswn7DgMF8WUVxqZKys7kmA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5fcfdb87-4200-4e73-ab42-f9f54607f078",
+                            SecurityStamp = "15c6a813-5b83-458c-a39a-528baff26768",
                             TwoFactorEnabled = false,
                             UserName = "buyer@mail.com"
                         });
