@@ -5,6 +5,9 @@
 
     public class SupplierServiceModel
     {
+        [Display(Name = "Full Name")]
+        public required string FullName { get; set; }
+
 
         [Display(Name = "Phone number")]
         public required string PhoneNumber { get; set; }

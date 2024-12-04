@@ -135,7 +135,7 @@
                 .AnyAsync(x => x.Id == id);
         }
 
-        public async Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id)
+        public async Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id) // Details 
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
@@ -144,6 +144,7 @@
                     Id = x.Id,
                     Supplier = new Models.Supplier.SupplierServiceModel()
                     {
+                        FullName = $"{x.Supplier.User.FirstName} {x.Supplier.User.LastName}",
                         Email = x.Supplier.User.Email, // from IdentityUser(user) ==> Email?
                         PhoneNumber = x.Supplier.PhoneNumber
                     },
