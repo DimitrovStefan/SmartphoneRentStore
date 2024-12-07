@@ -11,7 +11,7 @@
         {
             var data = new SeedData();
 
-            builder.HasData(new ApplicationUser[] { data.SupplierUser, data.BuyerUser });
+            builder.HasData(new ApplicationUser[] { data.SupplierUser, data.BuyerUser, data.AdminUser });
         }
     }
 }

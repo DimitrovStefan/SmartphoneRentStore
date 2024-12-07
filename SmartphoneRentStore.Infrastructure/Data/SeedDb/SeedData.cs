@@ -8,10 +8,13 @@
         public ApplicationUser SupplierUser { get; set; }
         public ApplicationUser BuyerUser { get; set; }
 
+        public ApplicationUser AdminUser { get; set; }
+
+        public Supplier AdminSupplier { get; set; }
         public Supplier Supplier { get; set; }
 
         public Category LowCategory { get; set; }
-        public Category MediumCategory{ get; set; }
+        public Category MediumCategory { get; set; }
         public Category HighCategory { get; set; }
 
 
@@ -37,7 +40,9 @@
                 UserName = "supplier@mail.com",
                 NormalizedUserName = "supplier@mail.com",
                 Email = "supplier@mail.com",
-                NormalizedEmail = "supplier@mail.com"
+                NormalizedEmail = "supplier@mail.com",
+                FirstName = "Supplier",
+                LastName = "Supplierer"
             };
 
             SupplierUser.PasswordHash =
@@ -49,11 +54,27 @@
                 UserName = "buyer@mail.com",
                 NormalizedUserName = "buyer@mail.com",
                 Email = "buyer@mail.com",
-                NormalizedEmail = "buyer@mail.com"
+                NormalizedEmail = "buyer@mail.com",
+                FirstName = "Buyer",
+                LastName = "Buyerer"
             };
 
             BuyerUser.PasswordHash =
             hasher.HashPassword(SupplierUser, "buyer123");
+
+            AdminUser = new ApplicationUser()
+            {
+                Id = "0827ba07-dee3-4244-b882-e4113dcee101",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "ADMIN@MAIL.COM",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                FirstName = "Great",
+                LastName = "Admin"
+            };
+
+            AdminUser.PasswordHash =
+            hasher.HashPassword(AdminUser, "admin123");
         }
 
         private void SeedSuppliers()
@@ -64,6 +85,14 @@
                 PhoneNumber = "+359555555555",
                 City = "Burgas",
                 UserId = SupplierUser.Id
+            };
+
+            AdminSupplier = new Supplier()
+            {
+                Id = 3,
+                PhoneNumber = "+359555555556",
+                City = "Burgas",
+                UserId = AdminUser.Id
             };
         }
 

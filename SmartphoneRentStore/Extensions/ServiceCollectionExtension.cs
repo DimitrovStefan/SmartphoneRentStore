@@ -43,9 +43,10 @@
                 options.Password.RequireDigit = true;
                 options.Password.RequireUppercase = true;
             })
-                    .AddEntityFrameworkStores<SmartPhoneDbContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<SmartPhoneDbContext>();
 
-            return services; 
+            return services;
 
         }
     }

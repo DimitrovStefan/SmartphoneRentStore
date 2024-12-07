@@ -10,7 +10,7 @@
         {
             var data = new SeedData();
 
-            builder.HasData(new Supplier[] { data.Supplier });
+            builder.HasData(new Supplier[] { data.Supplier, data.AdminSupplier });
         }
     }
 }
