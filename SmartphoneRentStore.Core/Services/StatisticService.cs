@@ -19,6 +19,7 @@
         public async Task<StatisticServiceModel> TotalAsync()
         {
             int totalSmartphones = await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved)
                 .CountAsync();
 
             int totalRents = await repository.AllReadOnly<SmartPhone>()

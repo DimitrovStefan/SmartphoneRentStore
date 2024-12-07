@@ -26,7 +26,8 @@
                                                                 int currentPage = 1,
                                                                 int SmartPhonesPerPage = 1)
         {
-            var smartphonesToShow = repository.AllReadOnly<SmartPhone>(); // Take all in IQueryable
+            var smartphonesToShow = repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved); // Take all in IQueryable where is approved by admin
 
             if (category != null) // filter by category
             {
@@ -90,6 +91,7 @@
         public async Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesBySupplierIdAsync(int supplierId)
         {
             return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved)
                 .Where(x => x.SupplierId == supplierId)
                 .SmartPhonesProjection() // again using IQuareable to save memory
                 .ToListAsync();
@@ -98,6 +100,7 @@
         public async Task<IEnumerable<SmartPhoneServiceModel>> AllSmartphonesByUserIdAsync(string userId)
         {
             return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved)
                 .Where(x => x.RenterId == userId)
                 .SmartPhonesProjection()
                 .ToListAsync();
@@ -139,6 +142,7 @@
         {
             return await repository.AllReadOnly<SmartPhone>()
                 .Where(x => x.Id == id)
+                .Where(x => x.IsApproved)
                 .Select(x => new SmartPhoneDetailsServiceModel()
                 {
                     Id = x.Id,
@@ -163,6 +167,7 @@
         {
             return await repository
                 .AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved)
                 .OrderByDescending(x => x.Id)
                 .Take(4)
                 .Select(x => new SmartphoneIndexServiceModel()
@@ -209,6 +214,7 @@
         public async Task<SmartPhoneFormModel?> GetSmartphoneFormModelByIdAsync(int id)
         {
             var smartphone = await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved)
                 .Where(x => x.Id == id)
                 .Select(x => new SmartPhoneFormModel()
                 {

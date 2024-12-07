@@ -54,6 +54,9 @@
         [Comment("User id of the renterer")]
         public string? RenterId { get; set; }
 
+        [Comment("Is smartphone approved by admin")]
+        public bool IsApproved{ get; set; }
+
 
     }
 }
