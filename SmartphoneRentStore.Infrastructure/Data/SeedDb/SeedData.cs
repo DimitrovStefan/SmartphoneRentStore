@@ -73,7 +73,7 @@
                 LastName = "Admin"
             };
 
-            AdminUser.PasswordHash =
+            AdminUser.PasswordHash = 
             hasher.HashPassword(AdminUser, "admin123");
         }
 

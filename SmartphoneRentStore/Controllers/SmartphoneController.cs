@@ -141,7 +141,8 @@
                 return BadRequest();
             }
 
-            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false)
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false) // check for role "Administrator")
             {
                 return Unauthorized();
             }
@@ -162,7 +163,8 @@
                 return BadRequest();
             }
 
-            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false) // check if we have supplier with current id
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false // check if we have supplier with current id
+                && User.IsAdmin() == false) // check for role "Administrator"
             {
                 return Unauthorized();
             }
@@ -193,7 +195,8 @@
                 return BadRequest();
             }
 
-            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false) // check for exist supplier
+            if (await smartphoneService.HasSupplierWithIdAsync(id, User.Id()) == false // check for exist supplier
+                && User.IsAdmin() == false) // check for role "Administrator") 
             {
                 return Unauthorized();
             }
@@ -220,7 +223,8 @@
                 return BadRequest();
             }
 
-            if (await smartphoneService.HasSupplierWithIdAsync(model.Id, User.Id()) == false) // check for exist supplier
+            if (await smartphoneService.HasSupplierWithIdAsync(model.Id, User.Id()) == false // check for exist supplier
+                && User.IsAdmin() == false) // check for role "Administrator") 
             {
                 return Unauthorized();
             }
@@ -239,7 +243,8 @@
                 return BadRequest();
             }
 
-            if (await supplierService.ExistsByIdAsync(User.Id())) // check for exist supplier
+            if (await supplierService.ExistsByIdAsync(User.Id()) // check for exist supplier
+                && User.IsAdmin() == false)  // check for role "Administrator") 
             {
                 return Unauthorized();
             }

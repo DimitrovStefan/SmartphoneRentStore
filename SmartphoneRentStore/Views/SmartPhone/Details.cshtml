@@ -27,7 +27,7 @@
             <p>Category: <b>@Model.Category</b></p>
             <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
             <div class="form-inline">
-                 @if (await smartPhoneService.HasSupplierWithIdAsync(Model.Id, User.Id()))
+                @if (await smartPhoneService.HasSupplierWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                 {
                     <a class="btn btn-warning" asp-controller="Smartphone" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
@@ -35,7 +35,7 @@
                        asp-route-id="@Model.Id">Delete</a>
                 }
 
-                @if (!Model.IsRented && ((await supplierService.ExistsByIdAsync(User.Id())) == false))
+                @if (!Model.IsRented && ((await supplierService.ExistsByIdAsync(User.Id())) == false || User.IsAdmin()))
                 {
                     <form class="ml-2" asp-controller="Smartphone"
                           asp-action="Rent" asp-route-id="@Model.Id" method="post">
