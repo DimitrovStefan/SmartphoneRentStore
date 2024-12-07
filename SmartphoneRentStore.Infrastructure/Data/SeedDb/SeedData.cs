@@ -2,13 +2,19 @@
 {
     using Microsoft.AspNetCore.Identity;
     using SmartphoneRentStore.Infrastructure.Data.Models;
+    using static SmartphoneRentStore.Infrastructure.Constants.CustomClaims;
 
     internal class SeedData
     {
         public ApplicationUser SupplierUser { get; set; }
+        public IdentityUserClaim<string> SupplierUserClaim { get; set; }
+        
         public ApplicationUser BuyerUser { get; set; }
-
+        public IdentityUserClaim<string> BuyerUserClaim { get; set; }
+        
         public ApplicationUser AdminUser { get; set; }
+        public IdentityUserClaim<string> AdminUserClaim { get; set; }
+
 
         public Supplier AdminSupplier { get; set; }
         public Supplier Supplier { get; set; }
@@ -45,8 +51,21 @@
                 LastName = "Supplierer"
             };
 
+            SupplierUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 1,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Supplier Supplierer",
+                UserId = "dea12856-c198-4129-b3f3-b893d8395082"
+            };
+
             SupplierUser.PasswordHash =
                  hasher.HashPassword(SupplierUser, "supplier123");
+
+
+
+
+
 
             BuyerUser = new ApplicationUser()
             {
@@ -59,8 +78,20 @@
                 LastName = "Buyerer"
             };
 
+            BuyerUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 2,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Buyer Buyerer",
+                UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
+            };
+
             BuyerUser.PasswordHash =
             hasher.HashPassword(SupplierUser, "buyer123");
+
+
+
+
 
             AdminUser = new ApplicationUser()
             {
@@ -71,6 +102,15 @@
                 NormalizedEmail = "ADMIN@MAIL.COM",
                 FirstName = "Great",
                 LastName = "Admin"
+            };
+
+
+            AdminUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 3,
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Great Admin",
+                UserId = "0827ba07-dee3-4244-b882-e4113dcee101"
             };
 
             AdminUser.PasswordHash = 

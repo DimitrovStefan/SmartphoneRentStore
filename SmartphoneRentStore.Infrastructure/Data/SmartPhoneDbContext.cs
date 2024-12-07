@@ -19,6 +19,7 @@ namespace SmartphoneRentStore.Infastructure.Data
             builder.ApplyConfiguration(new SupplierConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new SmartPhoneConfiguration());
+            builder.ApplyConfiguration(new UserClaimsConfiguration());
 
 
             base.OnModelCreating(builder);
