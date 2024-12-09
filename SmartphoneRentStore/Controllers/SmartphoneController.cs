@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartphoneRentStore.Core.Constants;
     using SmartphoneRentStore.Core.Contracts;
     using SmartphoneRentStore.Core.Exeptions;
     using SmartphoneRentStore.Core.Extensions;
@@ -258,9 +259,11 @@
             {
                 return BadRequest();
             }
-
+            
 
             await smartphoneService.RentAsync(id, User.Id()); // make rent
+
+            TempData[UserMessageSuccess] = "You have rented the smartphone";
 
             return RedirectToAction(nameof(All));
         }
@@ -281,6 +284,8 @@
             try
             {
                 await smartphoneService.LeaveAsync(id, User.Id());
+
+                TempData[UserMessageSuccess] = "You have left the smartphone";
             }
             catch (UnauthorizedActionExeption ex)
             {

@@ -18,6 +18,9 @@ builder.Services.AddControllersWithViews(options =>
 });
 
 builder.Services.AddApplicationServices();
+builder.Services.AddMemoryCache(); // memory cache
+
+
 
 var app = builder.Build();
 

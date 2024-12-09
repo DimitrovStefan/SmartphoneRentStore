@@ -14,6 +14,8 @@
 
         public const string NotRenterUserError = "The user is not the renter!";
 
+        public const string UserMessageSuccess = "UserMessageSuccess";
 
+        public const string UserMessageError = "UserMessageError";
     }
 }
