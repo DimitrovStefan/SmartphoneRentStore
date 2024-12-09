@@ -46,5 +46,7 @@
         
         Task LeaveAsync(int smartphoneId, string userId);
 
+        Task<IEnumerable<SmartPhoneServiceModel>> GetUnApprovedAsync();
+        Task ApproveSmartphoneAsync(int smartphoneId);
     }
 }

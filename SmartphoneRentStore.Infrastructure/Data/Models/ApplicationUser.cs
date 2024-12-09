@@ -16,5 +16,6 @@
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
 
+        public Supplier? Supplier { get; set; }
     }
 }

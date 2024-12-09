@@ -15,6 +15,8 @@
             services.AddScoped<ISmartphoneService, SmartphoneService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IStatisticService, StatisticService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRentService, RentService>();
 
             return services;
         }

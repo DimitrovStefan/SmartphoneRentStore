@@ -57,6 +57,9 @@
         [Comment("Is smartphone approved by admin")]
         public bool IsApproved{ get; set; }
 
+        [ForeignKey(nameof(RenterId))]
+        public ApplicationUser? Renter { get; set; }
+
 
     }
 }

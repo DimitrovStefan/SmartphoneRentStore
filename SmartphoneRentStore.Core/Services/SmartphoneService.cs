@@ -288,5 +288,33 @@
                 await repository.SaveChangesAsync();
             }
         }
+
+        public async Task ApproveSmartphoneAsync(int smartphoneId)
+        {
+            var smartphone = await repository.GetByIdAsync<SmartPhone>(smartphoneId);
+
+            if (smartphone != null && smartphone.IsApproved == false)
+            {
+                smartphone.IsApproved = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<SmartPhoneServiceModel>> GetUnApprovedAsync()
+        {
+            return await repository.AllReadOnly<SmartPhone>()
+                .Where(x => x.IsApproved == false)
+                .Select(x => new SmartPhoneServiceModel()
+                { 
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    Id = x.Id,
+                    IsRented = false,
+                    PricePerMonth = x.PricePerMonth,
+                    Title = x.Title
+                })
+                .ToListAsync();
+        }
     }
 }

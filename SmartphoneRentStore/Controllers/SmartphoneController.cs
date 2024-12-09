@@ -54,6 +54,11 @@
 
             IEnumerable<SmartPhoneServiceModel> model;
 
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Mine", "Smartphone", new { area = "Admin" }); // if the user is admin redirect me to the admin menu "Mine"
+            }
+
             if (await supplierService.ExistsByIdAsync(userId))
             {
                 var supplierId = await supplierService.GetSupplierIdAsync(userId) ?? 0; // check if i'em a supplier and take my id

@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SmartphoneRentStore.Infrastructure.Data.Models;
 using SmartphoneRentStore.Extensions;
-using static SmartphoneRentStore.Core.Constants.RoleConstants;
+using static SmartphoneRentStore.Core.Constants.AdministratorConstants;
 
 namespace SmartphoneRentStore.Areas.Identity.Pages.Account
 {

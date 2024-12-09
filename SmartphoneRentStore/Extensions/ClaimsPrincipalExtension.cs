@@ -1,7 +1,7 @@
 ﻿namespace SmartphoneRentStore.Extensions
 {
     using System.Security.Claims;
-    using static SmartphoneRentStore.Core.Constants.RoleConstants;
+    using static SmartphoneRentStore.Core.Constants.AdministratorConstants;
 
 
     public static class ClaimsPrincipalExtension

@@ -1,0 +1,22 @@
+﻿@model SmartPhoneServiceModel
+@inject ISupplierService supplierService;
+@inject ISmartphoneService smartphoneService;
+
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Smartphone Image"> <div class="card-body text-center">
+            <h4>@Model.Title</h4>
+
+            <h6>
+                Price Per Month:
+                <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b>
+            </h6>
+
+            <form class="input-group-sm" asp-controller="Smartphone"
+                  asp-area="Admin" asp-action="Approve" asp-route-smartphoneId="@Model.Id" method="post">
+                <input class="btn btn-success" type="submit" value="Approve" />
+            </form>
+        </div>
+    </div>
+</div>

@@ -2,9 +2,9 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using static SmartphoneRentStore.Core.Constants.RoleConstants;
+    using static SmartphoneRentStore.Core.Constants.AdministratorConstants;
 
-    [Area("Admin")]
+    [Area(AdminAreaName)]
     [Authorize(Roles = AdminRole)]
     public class AdminBaseController : Controller
     {

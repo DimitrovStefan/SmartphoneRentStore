@@ -11,7 +11,7 @@
             
             <h6> Price Per Month: <b>@String.Format("{0:f2}", Model.PricePerMonth) BGN</b> </h6> 
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6> <br /> 
-            <a asp-controller="Smartphone" asp-action="Details" asp-route-id="@Model.Id" 
+            <a asp-area="" asp-controller="Smartphone" asp-action="Details" asp-route-id="@Model.Id" 
             asp-route-information="@Model.GetInformation()" class="btn btn-success">Details</a> 
             
             @if (this.User.Identity.IsAuthenticated)

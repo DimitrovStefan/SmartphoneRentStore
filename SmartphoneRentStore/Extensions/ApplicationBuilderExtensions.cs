@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using SmartphoneRentStore.Infrastructure.Data.Models;
-    using static SmartphoneRentStore.Core.Constants.RoleConstants;
+    using static SmartphoneRentStore.Core.Constants.AdministratorConstants;
 
 
     public static class ApplicationBuilderExtensions
