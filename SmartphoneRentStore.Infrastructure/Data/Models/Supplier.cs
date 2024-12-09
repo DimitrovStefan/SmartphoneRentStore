@@ -17,16 +17,16 @@
         [Required] // ?
         [MaxLength(SupplierPhoneMaxLength)]
         [Comment("Supplier phone number")]
-        public required string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = null!;
 
         [Required] // ?
         [MaxLength(SupplierCityMaxLength)]
         [Comment("Supplier based city")]
-        public required string City { get; set; }
+        public  string City { get; set; } = null!;
 
         [Required] //?
         [Comment("User identifier")]
-        public required string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }

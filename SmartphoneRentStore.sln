@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore", "SmartphoneRentStore\SmartphoneRentStore.csproj", "{BF004517-3EA1-468B-851D-0673FACD31A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartphoneRentStore", "SmartphoneRentStore\SmartphoneRentStore.csproj", "{BF004517-3EA1-468B-851D-0673FACD31A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore.Core", "SmartphoneRentStore.Core\SmartphoneRentStore.Core.csproj", "{424E83B5-1F93-4C20-99F8-D84C15885ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartphoneRentStore.Core", "SmartphoneRentStore.Core\SmartphoneRentStore.Core.csproj", "{424E83B5-1F93-4C20-99F8-D84C15885ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore.Infrastructure", "SmartphoneRentStore.Infrastructure\SmartphoneRentStore.Infrastructure.csproj", "{69F0155D-8BC2-47E9-9F33-3F406654DF11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartphoneRentStore.Infrastructure", "SmartphoneRentStore.Infrastructure\SmartphoneRentStore.Infrastructure.csproj", "{69F0155D-8BC2-47E9-9F33-3F406654DF11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartphoneRentStore.Tests", "SmartphoneRentStore.Tests\SmartphoneRentStore.Tests.csproj", "{03856DB4-0F9F-4C30-833F-C11C8C8E8C64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F0155D-8BC2-47E9-9F33-3F406654DF11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03856DB4-0F9F-4C30-833F-C11C8C8E8C64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03856DB4-0F9F-4C30-833F-C11C8C8E8C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03856DB4-0F9F-4C30-833F-C11C8C8E8C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03856DB4-0F9F-4C30-833F-C11C8C8E8C64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
