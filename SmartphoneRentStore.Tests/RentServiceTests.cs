@@ -21,7 +21,7 @@ namespace SmartphoneRentStore.Tests
         }
 
         [Test]
-        public async Task AllAsync_ReturnsExpectedRentServiceModels()
+        public async Task AllAsyncRentServiceModels()
         {
             // Arrange
             var mockSmartphones = new List<SmartPhone>
