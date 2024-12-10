@@ -141,8 +141,8 @@
         public async Task<SmartPhoneDetailsServiceModel> SmartphoneDetailsByIdAsync(int id) // Details 
         {
             return await repository.AllReadOnly<SmartPhone>()
-                .Where(x => x.Id == id)
                 .Where(x => x.IsApproved)
+                .Where(x => x.Id == id)
                 .Select(x => new SmartPhoneDetailsServiceModel()
                 {
                     Id = x.Id,
@@ -157,7 +157,8 @@
                     ImageUrl = x.ImageUrl,
                     IsRented = x.RenterId != null!,
                     PricePerMonth = x.PricePerMonth,
-                    Title = x.Title
+                    Title = x.Title,
+                    
                 })
                 .FirstAsync(); // can return nullable, but every time we will use .ExistsAsync() so it's legit
         }

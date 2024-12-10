@@ -1,5 +1,6 @@
 ﻿namespace SmartphoneRentStore.Core.Models.SmartPhone
 {
+    using Microsoft.EntityFrameworkCore;
     using SmartphoneRentStore.Core.Contracts;
     using System.ComponentModel.DataAnnotations;
     using static SmartphoneRentStore.Core.Constants.MessageConstants;
@@ -36,8 +37,11 @@
         [Display(Name = "Is Rented")]
         public required bool IsRented { get; set; }
 
+        [Comment("Is smartphone approved by admin")]
+        public bool IsApproved { get; set; }
 
-        
+
+
 
     }
 }

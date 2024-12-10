@@ -116,6 +116,8 @@
         {
             if (await supplierService.ExistsByIdAsync(User.Id()) == false) // If the user is not Supplier redirect to Become Supplier..
             {
+                TempData[UserMessageError] = "You need to become a supplier!";
+
                 return RedirectToAction(nameof(SupplierController.Become), "Supplier");
             }
 
@@ -135,7 +137,9 @@
 
             int newSmartPhoneId = await smartphoneService.CreateAsync(model, supplierId ?? 0); // if is null
 
-            return RedirectToAction(nameof(Details), new { id = newSmartPhoneId, information = model.GetInformation()});
+            TempData[UserMessageSuccess] = "You have added the smartphone!";
+
+            return RedirectToAction(nameof(All));
         }
 
 
@@ -189,6 +193,8 @@
 
             await smartphoneService.EditAsync(id, model);
 
+            TempData[UserMessageSuccess] = "You success edit the smartphone!";
+
             return RedirectToAction(nameof(Details), new { id, information = model.GetInformation()});
         }
 
@@ -236,7 +242,9 @@
             }
 
             await smartphoneService.DeleteAsync(model.Id);
-             
+
+            TempData[UserMessageSuccess] = "You success delete the smartphone!";
+
             return RedirectToAction(nameof(All));
         }
 
