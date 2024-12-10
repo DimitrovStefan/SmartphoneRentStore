@@ -33,6 +33,7 @@ namespace SmartphoneRentStore.Tests
             var smartphone = new SmartPhone()
             {
                 Id = 1,
+                CategoryId = 1,
                 Description = "TestDescription",
                 Title = "TestTitle",
                 ImageUrl = "TestURL",
@@ -50,6 +51,9 @@ namespace SmartphoneRentStore.Tests
             Assert.That(smartphone.IsApproved, Is.EqualTo(true));
             Assert.That(smartphone.RenterId, Is.EqualTo(null));
             Assert.That(smartphone.Supplier, Is.EqualTo(supplier));
+            Assert.That(smartphone.CategoryId, Is.EqualTo(1));
         }
+
+
     }
 }
