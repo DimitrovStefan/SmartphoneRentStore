@@ -70,5 +70,8 @@ namespace SmartphoneRentStore.Tests
             Assert.That(firstItem.RenterEmail, Is.EqualTo("EmailRenterTest"));
             Assert.That(firstItem.RenterFullName, Is.EqualTo("FirstNameTest LastNameTest"));
         }
+
+
+        
     }
 }
